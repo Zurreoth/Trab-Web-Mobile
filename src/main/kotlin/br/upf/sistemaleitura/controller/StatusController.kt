@@ -23,7 +23,7 @@ import org.springframework.web.util.UriComponentsBuilder
 class StatusController(val service: StatusService) {
 
     @GetMapping
-    fun listar(): List<StatusResponseDTOR> {
+    fun listar(): List<StatusResponseDTO> {
         return service.listar()
     }
 
@@ -34,20 +34,20 @@ class StatusController(val service: StatusService) {
 
     @PostMapping
     @Transactional
-    fun cadastrar(@RequestBody @Valid dto: UsuarioDTO,
+    fun cadastrar(@RequestBody @Valid dto: StatusDTO,
                  uriBuilder: UriComponentsBuilder
-    ): ResponseEntity<UsuarioResponseDTO> {
-        val userResponse = service.cadastrar(dto)
-        val uri = uriBuilder.path("/usuarios/${userResponse.id}")
+    ): ResponseEntity<StatusResponseDTO> {
+        val statusResponse = service.cadastrar(dto)
+        val uri = uriBuilder.path("/status/${statusResponse.id}")
             .build().toUri()
-        return ResponseEntity.created(uri).body(userResponse)
+        return ResponseEntity.created(uri).body(statusResponse)
     }
 
     @PutMapping("/{id}")
     @Transactional
     fun atualizar(@PathVariable id: Long,
-                  @RequestBody @Valid dto: UsuarioDTO
-    ): UsuarioResponseDTO {
+                  @RequestBody @Valid dto: StatusDTO
+    ): StatusResponseDTO {
         return service.atualizar(id, dto)
     }
 
