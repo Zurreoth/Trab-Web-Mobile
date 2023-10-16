@@ -29,7 +29,7 @@ class LivroController(val service: LivroService) {
     @GetMapping
     fun listar(
         @RequestParam(required = false) nomeLivro: String?,
-        @PageableDefault(size = 10) paginacao: Pageable)
+        @PageableDefault(size = 10, sort = ["nome"]) paginacao: Pageable)
     : Page<LivroResponseDTO> {
         return service.listar(nomeLivro, paginacao)
     }

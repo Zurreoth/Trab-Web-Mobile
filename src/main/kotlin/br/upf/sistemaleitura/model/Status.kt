@@ -12,5 +12,5 @@ data class Status(
     val livro: Livro,
     val nota: Int,
     @Enumerated(value = EnumType.STRING)
-    val status: StatusLeitura,
+    val status: StatusLeitura
 )

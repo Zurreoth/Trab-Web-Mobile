@@ -4,12 +4,13 @@ import br.upf.sistemaleitura.converters.LivroConverter
 import br.upf.sistemaleitura.dtos.LivroDTO
 import br.upf.sistemaleitura.dtos.LivroResponseDTO
 import br.upf.sistemaleitura.exceptions.NotFoundException
+import br.upf.sistemaleitura.model.Livro
 import br.upf.sistemaleitura.repository.LivroRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
-private const val EVENTO_NOT_FOUND_MESSAGE = "Livro não encontrado!"
+private const val LIVRO_NOT_FOUND_MESSAGE = "Livro não encontrado!"
 
 @Service
 class LivroService(
@@ -31,8 +32,13 @@ class LivroService(
 
     fun buscarPorId(id: Long): LivroResponseDTO {
         val livro = repository.findById(id)
-            .orElseThrow { NotFoundException(EVENTO_NOT_FOUND_MESSAGE) }
+            .orElseThrow { NotFoundException(LIVRO_NOT_FOUND_MESSAGE) }
         return converter.toLivroResponseDTO(livro)
+    }
+
+    fun buscarLivroPorId(id: Long): Livro {
+        return repository.findById(id)
+            .orElseThrow { NotFoundException(LIVRO_NOT_FOUND_MESSAGE) }
     }
 
     fun cadastrar(dto: LivroDTO): LivroResponseDTO {
@@ -43,7 +49,7 @@ class LivroService(
 
     fun atualizar(id: Long, dto: LivroDTO): LivroResponseDTO {
         val livro = repository.findById(id)
-            .orElseThrow { NotFoundException(EVENTO_NOT_FOUND_MESSAGE) }
+            .orElseThrow { NotFoundException(LIVRO_NOT_FOUND_MESSAGE) }
             .copy(
                 nome = dto.nome,
                 autor = dto.autor,

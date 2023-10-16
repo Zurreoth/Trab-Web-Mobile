@@ -11,8 +11,8 @@
 	<groupId>br.upf</groupId>
 	<artifactId>sistemaleitura</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Sistema de Eventos</name>
-	<description>Sistema de eventos</description>
+	<name>Sistema de Leitura</name>
+	<description>Sistema de Leitura</description>
 	<properties>
 		<java.version>17</java.version>
 		<kotlin.version>1.8.22</kotlin.version>

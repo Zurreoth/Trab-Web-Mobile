@@ -7,8 +7,8 @@ import jakarta.persistence.*
 
 data class StatusResponseDTO(
     val id: Long? = null,
-    val usuario: Usuario,
-    val livro: Livro,
+    val usuario: Long?,
+    val livro: Long?,
     val nota: Int,
-    val status: StatusLeitura,
+    val status: String,
 )

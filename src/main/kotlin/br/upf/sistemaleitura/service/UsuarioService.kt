@@ -4,6 +4,7 @@ import br.upf.sistemaleitura.converters.UsuarioConverter
 import br.upf.sistemaleitura.dtos.UsuarioDTO
 import br.upf.sistemaleitura.dtos.UsuarioResponseDTO
 import br.upf.sistemaleitura.exceptions.NotFoundException
+import br.upf.sistemaleitura.model.Usuario
 import br.upf.sistemaleitura.repository.UsuarioRepository
 import org.springframework.stereotype.Service
 
@@ -23,6 +24,11 @@ class UsuarioService(
         val usuario = repository.findById(id)
             .orElseThrow { NotFoundException(USUARIO_NOT_FOUND_MESSAGE) }
         return converter.toUsuarioResponseDTO(usuario)
+    }
+
+    fun buscarUsuarioPorId(id: Long): Usuario {
+        return repository.findById(id)
+            .orElseThrow { NotFoundException(USUARIO_NOT_FOUND_MESSAGE) }
     }
 
     fun cadastrar(dto: UsuarioDTO): UsuarioResponseDTO {

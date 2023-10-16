@@ -4,6 +4,7 @@ import br.upf.sistemaleitura.converters.StatusConverter
 import br.upf.sistemaleitura.dtos.StatusDTO
 import br.upf.sistemaleitura.dtos.StatusResponseDTO
 import br.upf.sistemaleitura.exceptions.NotFoundException
+import br.upf.sistemaleitura.model.StatusLeitura
 import br.upf.sistemaleitura.repository.StatusRepository
 import org.springframework.stereotype.Service
 
@@ -14,6 +15,8 @@ private const val STATUS_NOT_FOUND_MESSAGE = "Status não encontrado!"
 class StatusService (
     var repository: StatusRepository,
     var converter: StatusConverter,
+    var usuarioService: UsuarioService,
+    var livroService: LivroService
 ){
     fun listar(): List<StatusResponseDTO> {
         return repository.findAll()
@@ -35,10 +38,10 @@ class StatusService (
         val status = repository.findById(id)
             .orElseThrow { NotFoundException(STATUS_NOT_FOUND_MESSAGE) }
             .copy(
-                usuario = dto.usuario,
-                livro = dto.livro,
+                usuario = usuarioService.buscarUsuarioPorId(dto.usuario),
+                livro = livroService.buscarLivroPorId(dto.livro),
                 nota = dto.nota,
-                status = dto.status,
+                status = StatusLeitura.valueOf(dto.status),
             )
         return converter.toStatusResponseDTO(repository.save(status))
     }

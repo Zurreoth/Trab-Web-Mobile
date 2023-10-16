@@ -8,10 +8,10 @@ import jakarta.validation.constraints.NotNull
 
 data class StatusDTO(
     @field:NotBlank(message = "Deve haver Status!")
-    val status: StatusLeitura,
+    val status: String,
     @field:NotNull(message = "Status deve ter Usuário!")
-    val usuario: Usuario,
+    val usuario: Long,
     @field:NotNull(message = "Status deve ter Livro!")
-    val livro: Livro,
+    val livro: Long,
     val nota: Int,
 )
